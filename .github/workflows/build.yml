@@ -1,9 +1,10 @@
 name: Build My Supermarket APK 🛒
+
 on:
   push:
     branches:
       - main
-  workflow_dispatch: # عشان تشغله يدوي في أي وقت
+  workflow_dispatch:
 
 jobs:
   buildForAndroid:
@@ -13,16 +14,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           lfs: true
-
-      - name: Cache Library ⚡
-        uses: actions/cache@v3
-        with:
-          path: Library
-          key: Library-Android
-          restore-keys: |
-            Library-
 
       - name: Build Project
         uses: game-ci/unity-builder@v4
@@ -30,12 +22,11 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           targetPlatform: Android
-          androidAppBundle: false # عشان يطلع APK مش AAB
           unityVersion: 2022.3.0f1
+          androidAppBundle: false
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Supermarket-Build
           path: build/Android
-          
