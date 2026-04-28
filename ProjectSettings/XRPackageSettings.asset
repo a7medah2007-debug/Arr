@@ -1,5 +1,36 @@
 {
-    "m_Settings": [
-        "RemoveLegacyInputHelpersForReload"
+    "m_Settings": {
+        "m_LoaderManagerInstance": {
+            "m_Loaders": [
+                "Unity.XR.Oculus.OculusLoader"
+            ],
+            "m_InitializeOnStartup": true
+        }
+    },
+    "m_PlatformSettings": [
+        {
+            "m_BuildTarget": "Android",
+            "m_Enabled": true,
+            "m_Settings": {
+                "m_LoaderManagerInstance": {
+                    "m_Loaders": [
+                        "Unity.XR.Oculus.OculusLoader"
+                    ],
+                    "m_InitializeOnStartup": true
+                }
+            }
+        },
+        {
+            "m_BuildTarget": "Standalone",
+            "m_Enabled": true,
+            "m_Settings": {
+                "m_LoaderManagerInstance": {
+                    "m_Loaders": [
+                        "Unity.XR.Oculus.OculusLoader"
+                    ],
+                    "m_InitializeOnStartup": true
+                }
+            }
+        }
     ]
 }
