@@ -1,32 +1,22 @@
 name: Build My Supermarket APK 🛒
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
-  buildForAndroid:
-    name: Build for Android 🚀
+  build:
+    name: Build Project 🚀
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          lfs: true
 
-      - name: Build Project
+      - name: Build Unity Project
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           targetPlatform: Android
           unityVersion: 2022.3.0f1
-          androidAppBundle: false
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Supermarket-Build
-          path: build/Android
+          # ضفنا السطرين دول عشان نتأكد إن النسخة مطابقة تماماً
+          versioningStrategy: Tag
