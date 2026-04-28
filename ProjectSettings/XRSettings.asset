@@ -1,10 +1,20 @@
 {
+    "m_LoaderManagerInstance": {
+        "m_Loaders": [
+            "OculusLoader"
+        ],
+        "m_InitializeOnStartup": true
+    },
     "m_SettingKeys": [
         "VR Device Disabled",
-        "VR Device User Alert"
+        "VR Device User Alert",
+        "XR Plugin Management Enabled",
+        "Oculus Target Device"
     ],
     "m_SettingValues": [
         "False",
-        "False"
+        "False",
+        "True",
+        "Quest2"
     ]
 }
