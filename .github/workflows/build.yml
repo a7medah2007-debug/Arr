@@ -1,24 +1,10 @@
 name: Build My Supermarket APK 🛒
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # تشغيل يدوي من Actions
 
 jobs:
-  check_secret:
-    name: Check Secret Presence 🔍
-    runs-on: ubuntu-latest
-    steps:
-      - name: Is Secret Empty?
-        run: |
-          if [ -z "${{ secrets.UNITY_LICENSE }}" ]; then
-            echo "❌ ERROR: UNITY_LICENSE is EMPTY! Fix it in Settings -> Secrets."
-            exit 1
-          else
-            echo "✅ SUCCESS: UNITY_LICENSE is found and has content."
-          fi
-
   build:
-    needs: check_secret
     name: Build Project 🚀
     runs-on: ubuntu-latest
     steps:
@@ -28,7 +14,53 @@ jobs:
       - name: Build Unity Project
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_LICENSE: |
+            <?xml version="1.0" encoding="UTF-8"?><root><TimeStamp Value="7L20yk977ZFU1w=="/>
+                <License id="Terms">
+                    <MachineBindings>
+                        <Binding Key="1" Value="00330-51801-93729-AAOEM"/>
+                        <Binding Key="2" Value="00000_00_000000_00_1000A7_25_36440A_6D.B"/>
+                        <Binding Key="4" Value="UjkwVDlRWUQ="/>
+                        <Binding Key="5" Value="48:2a:e3:32:c4:27"/>
+                    </MachineBindings>
+                    <MachineID Value="7pT6++veMVWVSWY5SP2l07Ta6/g="/>
+                    <SerialHash Value="807d8827cc907b9d322305fd6b5b84e3e93b8cb6"/>
+                    <Features>
+                        <Feature Value="33"/>
+                        <Feature Value="1"/>
+                        <Feature Value="12"/>
+                        <Feature Value="2"/>
+                        <Feature Value="24"/>
+                        <Feature Value="3"/>
+                        <Feature Value="36"/>
+                        <Feature Value="17"/>
+                        <Feature Value="19"/>
+                        <Feature Value="62"/>
+                    </Features>
+                    <DeveloperData Value="AQAAAEY0LUFQNDUtV0dHRy1CS1JXLUtTRjQtU1paWQ=="/>
+                    <SerialMasked Value="F4-AP45-WGGG-BKRW-KSF4-XXXX"/>
+                    <StartDate Value="2026-04-28T00:00:00"/>
+                    <UpdateDate Value="2026-04-29T01:24:53"/>
+                    <InitialActivationDate Value="2026-04-28T01:19:16"/>
+                    <LicenseVersion Value="6.x"/>
+                    <ClientProvidedVersion Value="2017.2.0"/>
+                    <AlwaysOnline Value="false"/>
+                    <Entitlements>
+                        <Entitlement Ns="unity_editor" Tag="UnityPersonal" Type="EDITOR" ValidTo="9999-12-31T00:00:00"/>
+                        <Entitlement Ns="unity_editor" Tag="DarkSkin" Type="EDITOR_FEATURE" ValidTo="9999-12-31T00:00:00"/>
+                    </Entitlements>
+                </License><Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI="#Terms"><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>6/AijPh2SGtdFSFmTSZx5MiXhEA=</DigestValue></Reference></SignedInfo><SignatureValue>unmvvN7J2/11Sy835EqtIArXL0mnr+Zum3wUj8CqCmAyrerHsby6qfYzrmxXa3xNAujGM60hWRac
+            Dyt2WpwBvgmjbKMYgRxWYwg5mqS1IZObyQ3uNo4QZ1q2WgXwgCNY+q49z4IeNdkEDELNv7hQOHSp
+            Lk1TqRjga9QjpepmJA28/oB2SyySatPt21DMdny/0ucGZfffIcbp4RPXl3XczItkXsIXH8bo/Ke3
+            APLIAMXqNaTxS8IrEGW19Khag9KDwNiTgY6Vmm5l48N3b2mSDR2rvqMbZc73IcTuuBR41lpeo4a/
+            Nptoi44ynXqXjVBCKWdz7oS2L4QIHpyf0SuGfA==</SignatureValue></Signature></root>
         with:
           targetPlatform: Android
           unityVersion: 2022.3.0f1
+          androidAppBundle: false
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Supermarket-Build
+          path: build/Android
