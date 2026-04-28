@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Grabbable
+  - Hand
+  - Teleport
   layers:
   - Default
   - TransparentFX
@@ -13,13 +16,13 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PostProcessing
+  - XR_Hand_L
+  - XR_Hand_R
+  - Interactable
+  - Grab
+  - Socket
+  - UI_VR
   - 
   - 
   - 
