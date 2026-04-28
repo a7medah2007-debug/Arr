@@ -4,7 +4,21 @@ on:
   workflow_dispatch:
 
 jobs:
+  check_secret:
+    name: Check Secret Presence 🔍
+    runs-on: ubuntu-latest
+    steps:
+      - name: Is Secret Empty?
+        run: |
+          if [ -z "${{ secrets.UNITY_LICENSE }}" ]; then
+            echo "❌ ERROR: UNITY_LICENSE is EMPTY! Fix it in Settings -> Secrets."
+            exit 1
+          else
+            echo "✅ SUCCESS: UNITY_LICENSE is found and has content."
+          fi
+
   build:
+    needs: check_secret
     name: Build Project 🚀
     runs-on: ubuntu-latest
     steps:
